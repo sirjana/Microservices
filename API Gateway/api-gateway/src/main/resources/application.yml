@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: api-gateway
+# GATEWAY CONFIGURATIONS
+
+# Service1
+
+  cloud:
+    gateway:
+      mvc:
+        routes:
+          - id: department-service-route
+            uri: lb://department-service
+            predicates:
+              - Path=/department/**
+            filters:
+              - StripPrefix=1
+
+          - id: user-service-route
+            uri: lb://user-service
+            predicates:
+              - Path=/user/**
+            filters:
+              - StripPrefix=1
+server:
+  port: 8080
